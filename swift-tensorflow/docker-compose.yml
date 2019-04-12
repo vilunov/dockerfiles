@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  tf:
+    image: vilunov/swift-tensorflow-cuda10:latest
+    build: .
+    volumes:
+      - "./work/:/work/"
+    ports:
+      - "8888:8888"
+    command: bash
+
