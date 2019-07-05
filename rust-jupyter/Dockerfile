@@ -13,4 +13,3 @@ WORKDIR /work/
 VOLUME /work/
 
 CMD ["jupyter-notebook", "--ip=0.0.0.0"]
-

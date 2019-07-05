@@ -34,4 +34,3 @@ RUN \
     swift-tensorflow-RELEASE-0.2-cuda10.0-cudnn7-ubuntu18.04.tar.gz
 
 WORKDIR /work/
-
