@@ -1,0 +1,53 @@
+version: "3.4"
+
+x-cjdns: &cjdns # service template
+  image: "vilunov/cjdns:latest"
+  build: .
+  cap_add:
+    - "NET_ADMIN"
+  devices:
+    - "/dev/net/tun"
+  restart: "on-failure"
+
+services:
+  cjdns-1:
+    <<: *cjdns
+    volumes:
+      - "./conf/1/:/etc/cjdns/"
+    ports:
+      - "11001:11234"
+    networks:
+      net1:
+        ipv4_address: "10.0.1.100"
+  cjdns-2:
+    <<: *cjdns
+    volumes:
+      - "./conf/2/:/etc/cjdns/"
+    ports:
+      - "11002:11234"
+    networks:
+      net1:
+        ipv4_address: "10.0.1.101"
+      net2:
+        ipv4_address: "10.0.2.101"
+  cjdns-3:
+    <<: *cjdns
+    volumes:
+      - "./conf/3/:/etc/cjdns/"
+    ports:
+      - "11003:11234"
+    networks:
+      net2:
+        ipv4_address: "10.0.2.100"
+
+networks:
+  net1:
+    internal: true
+    ipam:
+      config:
+        - subnet: "10.0.1.0/24"
+  net2:
+    internal: true
+    ipam:
+      config:
+        - subnet: "10.0.2.0/24"
